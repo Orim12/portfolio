@@ -100,7 +100,7 @@
                 <li><span>Birthdate</span> : 02/21/2006</li>
                 <li><span>Email</span> : <a href="mailto:miro.vaassen@gmail.com">miro.vaassen@gmail.com</a></li>
                 <li><span>Phone</span> : <a href="tel:+31643849658">+ (31) 0643849658</a></li>
-                <li><span>u kunt hier mijn cv downloaden als u dat wilt <a href="assets/pdf/Profile.pdf" target="_blank">Download</a></span></li>
+                <li><span>u kunt hier mijn cv downloaden <a href="assets/pdf/Profile.pdf" target="_blank">Download</a></span></li>
             </ul>
             <ul class="social-icons pt-3">
                 <li class="social-item"><a class="social-link" href="https://github.com/Orim12" aria-label="GitHub Profile"><i class="ti-github" aria-hidden="true"></i></a></li>
