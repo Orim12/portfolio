@@ -94,12 +94,12 @@
             <p class="mt-20">{lifedate}</p>
         </div>
         <div class="col-lg-4 about-card" style="position: relative; left: 400px;">
-            <h3 class="font-weight-light">Personelijke informatie</h3>
+            <h3 class="font-weight-light">Persoonlijke informatie</h3>
             <span class="line mb-5"></span>
             <ul class="mt40 info list-unstyled">
-                <li><span>Birthdate</span> : 02/21/2006</li>
-                <li><span>Email</span> : <a href="mailto:miro.vaassen@gmail.com">miro.vaassen@gmail.com</a></li>
-                <li><span>Phone</span> : <a href="tel:+31643849658">+ (31) 0643849658</a></li>
+                <li><span>Geboortedatum</span> : 02/21/2006</li>
+                <li><span>E-mail</span> : <a href="mailto:miro.vaassen@gmail.com">miro.vaassen@gmail.com</a></li>
+                <li><span>Telefoonnummer</span> : <a href="tel:+31643849658">+ (31) 0643849658</a></li>
                 <li><span>Hier kan je mijn cv downloaden: <a href="assets/pdf/Profile.pdf" target="_blank">Download</a></span></li>
             </ul>
             <ul class="social-icons pt-3">

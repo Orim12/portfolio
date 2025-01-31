@@ -59,23 +59,23 @@
         <div class="col-lg-4 about-card">
             <h3 class="font-weight-light">Wie ben ik?</h3>
             <span class="line mb-5"></span>
-            <h5 class="mb-3">Een student op ROC Aventus, aan de laan van mensenrechten</h5>
+            <h5 class="mb-3">Een student op ROC Aventus, aan de Laan van Mensenrechten</h5>
             <p class="mt-20">{lifedate}</p>
         </div>
         <div class="col-lg-4 about-card">
-            <h3 class="font-weight-light">Personelijke informatie</h3>
+            <h3 class="font-weight-light">Persoonlijke informatie</h3>
             <span class="line mb-5"></span>
             <ul class="mt40 info list-unstyled">
-                <li><span>Birthdate</span> : 02/21/2006</li>
-                <li><span>Email</span> : <a href="mailto:miro.vaassen@gmail.com">miro.vaassen@gmail.com</a></li>
-                <li><span>Phone</span> : <a href="tel:+31643849658">+ (31) 0643849658</a></li>
-                <li><span>Hier kan je mijn cv downloaden: <a href="assets/pdf/Profile.pdf" target="_blank">Download</a></span></li>
+                <li><span>Geboortedatum</span> : 02/21/2006</li>
+                <li><span>E-mail</span> : <a href="mailto:miro.vaassen@gmail.com">miro.vaassen@gmail.com</a></li>
+                <li><span>Telefoonnummer</span> : <a href="tel:+31643849658">+ (31) 0643849658</a></li>
+                <li><span>Hier kan je mijn CV downloaden: <a href="assets/pdf/Profile.pdf" target="_blank">Download</a></span></li>
             </ul>
             <ul class="social-icons pt-3">
                 <li class="social-item"><a class="social-link" href="https://github.com/Orim12" aria-label="GitHub Profile"><i class="ti-github" aria-hidden="true"></i></a></li>
                 <li class="social-item"><a class="social-link" href="https://www.linkedin.com/in/miro-vaassen-36b11629b" aria-label="LinkedIn Profile"><i class="fi fi-brands-linkedin"></i></a></li>
             </ul>
         </div>
-        <img src="assets/imgs/cv.png" alt="als u het niet ziet klik dan op de download knop">
+        <img src="assets/imgs/cv.png" alt="als het niet zichtbaar is, klik dan op de download knop">
     </div>
 </div>
