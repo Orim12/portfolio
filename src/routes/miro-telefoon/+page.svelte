@@ -10,7 +10,6 @@
         if (isMobileDevice()) {
         } else {
             goto('/');
-            // window.location.href = "/";
         }
     });
 

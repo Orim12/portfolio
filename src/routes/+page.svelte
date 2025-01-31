@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
     import { onMount } from 'svelte';
 
     function isMobileDevice() {
@@ -7,7 +8,7 @@
 
     onMount(() => {
         if (isMobileDevice()) {
-            window.location.href = "miro-telefoon";
+            goto('/miro-telefoon');
         } else {}
     });
 
