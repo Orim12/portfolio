@@ -1,5 +1,5 @@
 <svelte:head>
-   meta charset="utf-8">
+   <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    <title>miro Landing page | Components</title>
    <link rel="icon" href="assets/imgs/favicon.png" type="image/png">
@@ -13,7 +13,7 @@
     <div class="header-title">Components</div> 
     <nav aria-label="breadcrumb">
        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
           <li class="breadcrumb-item active" aria-current="page">Components</li>
        </ol>
     </nav>
