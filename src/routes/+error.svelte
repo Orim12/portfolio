@@ -95,7 +95,7 @@
 		align-items: center;
 		justify-content: center;
 		padding: 2rem;
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		background: var(--bg-color);
 		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	}
 
@@ -103,16 +103,15 @@
 		text-align: center;
 		max-width: 500px;
 		width: 100%;
-		background: rgba(255, 255, 255, 0.95);
-		backdrop-filter: blur(10px);
+		background: var(--card-bg);
 		border-radius: 20px;
 		padding: 3rem 2rem;
-		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-		border: 1px solid rgba(255, 255, 255, 0.2);
+		box-shadow: 0 20px 40px var(--card-shadow);
+		border: 1px solid var(--border-color);
 	}
 
 	.error-icon {
-		color: #6b73ff;
+		color: var(--accent-color);
 		margin-bottom: 1.5rem;
 		opacity: 0.8;
 	}
@@ -121,8 +120,8 @@
 		font-size: 4rem;
 		font-weight: 800;
 		margin: 0 0 1rem 0;
-		color: #2d3748;
-		background: linear-gradient(135deg, #667eea, #764ba2);
+		color: var(--text-color);
+		background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 		background-clip: text;
@@ -132,12 +131,13 @@
 		font-size: 1.5rem;
 		font-weight: 600;
 		margin: 0 0 1rem 0;
-		color: #2d3748;
+		color: var(--text-color);
 	}
 
 	.error-message {
 		font-size: 1.1rem;
-		color: #718096;
+		color: var(--text-color);
+		opacity: 0.7;
 		margin-bottom: 2rem;
 		line-height: 1.6;
 	}
@@ -166,27 +166,28 @@
 	}
 
 	.btn-primary {
-		background: linear-gradient(135deg, #667eea, #764ba2);
+		background: var(--accent-color);
 		color: white;
-		box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+		box-shadow: 0 4px 12px rgba(0, 123, 204, 0.3);
 	}
 
 	.btn-primary:hover {
+		background: var(--accent-hover);
 		transform: translateY(-2px);
-		box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+		box-shadow: 0 8px 20px rgba(0, 123, 204, 0.4);
 	}
 
 	.btn-secondary {
-		background: rgba(255, 255, 255, 0.8);
-		color: #4a5568;
-		border: 2px solid rgba(116, 75, 162, 0.2);
+		background: transparent;
+		color: var(--accent-color);
+		border: 2px solid var(--accent-color);
 	}
 
 	.btn-secondary:hover {
-		background: rgba(255, 255, 255, 1);
-		border-color: rgba(116, 75, 162, 0.4);
+		background: var(--accent-color);
+		color: white;
 		transform: translateY(-2px);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		box-shadow: 0 4px 12px var(--card-shadow);
 	}
 
 	@media (max-width: 640px) {

@@ -1,21 +1,13 @@
 import type { PaginatedProjectsResponse, ApiError } from './types.js';
 import { browser } from '$app/environment';
+import { env } from '$env/dynamic/public';
 
 // Base URL voor de API - uit environment variabelen of fallback
-const API_BASE_URL = browser ? 
-    (window as any).__API_BASE_URL__ || 'http://localhost:5005/api' : 
-    process.env.API_BASE_URL || 'http://localhost:5005/api';
-
-// Debug logging voor development
-if (browser && typeof window !== 'undefined') {
-    console.log('API_BASE_URL:', API_BASE_URL);
-}
+const API_BASE_URL = env.PUBLIC_API_BASE_URL || 'https://mirovaassen.nl/api';
 
 // Helper functie om de base URL voor media bestanden te krijgen
 export function getMediaBaseUrl(): string {
-    return browser ? 
-        (window as any).__MEDIA_BASE_URL__ || 'http://localhost:5005' : 
-        process.env.MEDIA_BASE_URL || 'http://localhost:5005';
+    return env.PUBLIC_MEDIA_BASE_URL || 'https://mirovaassen.nl';
 }
 
 export class ProjectsApiError extends Error {

@@ -109,11 +109,11 @@ function applySettings(settingsValue: Settings): void {
     
     const html = document.documentElement;
     
-    // Dark mode
-    if (settingsValue.darkMode) {
-        html.classList.add('dark');
+    // Dark mode - nu omgekeerd: light class toevoegen als dark mode UIT is
+    if (settingsValue.darkMode === false) {
+        html.classList.add('light');
     } else {
-        html.classList.remove('dark');
+        html.classList.remove('light');
     }
     
     // Font size

@@ -4,6 +4,45 @@
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script>
+			// Load theme immediately to prevent flash
+			// Default is dark mode, switch to light only if needed
+			(function() {
+				function getCookie(name) {
+					const value = `; ${document.cookie}`;
+					const parts = value.split(`; ${name}=`);
+					if (parts.length === 2) return parts.pop().split(';').shift();
+				}
+				
+				try {
+					const settingsCookie = getCookie('portfolio-settings');
+					const html = document.documentElement;
+					
+					if (settingsCookie) {
+						const settings = JSON.parse(decodeURIComponent(settingsCookie));
+						
+						// Switch to light mode only if explicitly disabled dark mode
+						if (settings.darkMode === false) {
+							html.classList.add('light');
+						}
+						
+						// Apply font size
+						if (settings.fontSize) {
+							html.setAttribute('data-font-size', settings.fontSize);
+						}
+						
+						// Apply animations setting
+						if (settings.animationsEnabled === false) {
+							html.classList.add('no-animations');
+						}
+					}
+					// Als er geen settings zijn, blijft dark mode de default
+				} catch (e) {
+					// Als parsing faalt, blijft dark mode de default
+					console.error('Failed to parse settings:', e);
+				}
+			})();
+		</script>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">

@@ -1,24 +1,7 @@
 /* CSS Variabelen voor light/dark mode */
+/* Default is nu dark mode om witte flits te voorkomen */
 :root {
-    /* Light mode colors */
-    --bg-color: #ffffff;
-    --text-color: #333333;
-    --header-bg: #f8f9fa;
-    --border-color: #e9ecef;
-    --accent-color: #007acc;
-    --accent-hover: #005fa3;
-    --card-bg: #ffffff;
-    --card-shadow: rgba(0, 0, 0, 0.1);
-    --input-bg: #ffffff;
-    --input-border: #ddd;
-    --success-color: #28a745;
-    --warning-color: #ffc107;
-    --error-color: #dc3545;
-    --info-color: #17a2b8;
-}
-
-/* Dark mode colors */
-.dark {
+    /* Dark mode colors als default */
     --bg-color: #1a1a1a;
     --text-color: #e9ecef;
     --header-bg: #2d2d2d;
@@ -33,6 +16,24 @@
     --warning-color: #ffd43b;
     --error-color: #e74c3c;
     --info-color: #3498db;
+}
+
+/* Light mode colors - alleen als .light class wordt toegevoegd */
+.light {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --header-bg: #f8f9fa;
+    --border-color: #e9ecef;
+    --accent-color: #007acc;
+    --accent-hover: #005fa3;
+    --card-bg: #ffffff;
+    --card-shadow: rgba(0, 0, 0, 0.1);
+    --input-bg: #ffffff;
+    --input-border: #ddd;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --error-color: #dc3545;
+    --info-color: #17a2b8;
 }
 
 /* Font size variations */
