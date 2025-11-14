@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { PageData } from './$types';
+    
     import type { Project } from '$lib/types';
     
     export let data: PageData;

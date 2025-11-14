@@ -1,6 +1,12 @@
 import type { PaginatedProjectsResponse, ApiError } from './types.js';
-import { browser } from '$app/environment';
 import { env } from '$env/dynamic/public';
+
+// Type definition voor General Data
+export interface GeneralData {
+    projectsAantal: any;
+    ervaringJaren: any;
+    klantenAantal: any;
+}
 
 // Base URL voor de API - uit environment variabelen of fallback
 const API_BASE_URL = env.PUBLIC_API_BASE_URL || 'https://mirovaassen.nl/api';
@@ -43,7 +49,7 @@ export async function fetchProjects(
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
         });
         
@@ -88,7 +94,7 @@ export async function fetchProjectById(id: string, fetchFn: typeof fetch = fetch
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
         });
         
@@ -114,6 +120,49 @@ export async function fetchProjectById(id: string, fetchFn: typeof fetch = fetch
         
         throw new ProjectsApiError(
             `Failed to fetch project: ${error instanceof Error ? error.message : 'Unknown error'}`
+        );
+    }
+}
+
+/**
+ * Haalt algemene data op (zoals aantal projecten, jaren ervaring, etc.)
+ * @param fetchFn - Fetch functie (optioneel, voor SvelteKit load functies)
+ * @returns Promise met algemene data
+ */
+export async function fetchGeneralData(fetchFn: typeof fetch = fetch): Promise<GeneralData> {
+    try {
+        const url = `${API_BASE_URL}/globals/general-data`;
+        console.log('Fetching general data from URL:', url);
+
+        const response = await fetchFn(url, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        });
+
+        console.log('General data response status:', response.status);
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('General data error response:', errorText);
+            throw new ProjectsApiError(
+                `Failed to fetch general data: ${response.status} ${response.statusText}`,
+                response.status
+            );
+        }
+
+        const data: GeneralData = await response.json();
+        console.log('Successfully fetched general data');
+        return data;
+    } catch (error) {
+        if (error instanceof ProjectsApiError) {
+            throw error;
+        }
+
+        throw new ProjectsApiError(
+            `Failed to fetch general data: ${error instanceof Error ? error.message : 'Unknown error'}`
         );
     }
 }

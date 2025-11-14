@@ -2,7 +2,13 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<link rel="icon" type="image/png" href="%sveltekit.assets%/favicon-96x96.png" sizes="96x96" />
+	<link rel="icon" type="image/svg+xml" href="%sveltekit.assets%/favicon.svg" />
+	<link rel="shortcut icon" href="%sveltekit.assets%/favicon.ico" />
+	<link rel="apple-touch-icon" sizes="180x180" href="%sveltekit.assets%/apple-touch-icon.png" />
+	<meta name="apple-mobile-web-app-title" content="Miro Vaassen" />
+	<link rel="manifest" href="%sveltekit.assets%/site.webmanifest" />
+		<title>Portfolio</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<script>
 			// Load theme immediately to prevent flash
@@ -14,13 +20,34 @@
 					if (parts.length === 2) return parts.pop().split(';').shift();
 				}
 				
+				// Try a few safe parsing attempts for cookie values that may be URL-encoded
+				function tryParseSettings(raw) {
+					if (!raw) return null;
+					const attempts = [raw];
+					// Try decodeURIComponent if it's URL encoded (may throw)
+					try {
+						attempts.push(decodeURIComponent(raw));
+					} catch (e) {
+						// ignore malformed URI sequences
+					}
+					// Also try stripping surrounding quotes ("..." or '...')
+					attempts.push(raw.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1'));
+					for (const attempt of attempts) {
+						try {
+							return JSON.parse(attempt);
+						} catch (_) {
+							// try next
+						}
+					}
+					return null;
+				}
+				
 				try {
 					const settingsCookie = getCookie('portfolio-settings');
 					const html = document.documentElement;
+					const settings = tryParseSettings(settingsCookie);
 					
-					if (settingsCookie) {
-						const settings = JSON.parse(decodeURIComponent(settingsCookie));
-						
+					if (settings) {
 						// Switch to light mode only if explicitly disabled dark mode
 						if (settings.darkMode === false) {
 							html.classList.add('light');
@@ -36,10 +63,10 @@
 							html.classList.add('no-animations');
 						}
 					}
-					// Als er geen settings zijn, blijft dark mode de default
+					// If no settings, leave dark mode as default
 				} catch (e) {
-					// Als parsing faalt, blijft dark mode de default
-					console.error('Failed to parse settings:', e);
+					// Only log unexpected errors (not simple parse failures)
+					console.error('Failed to apply settings:', e);
 				}
 			})();
 		</script>

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { settings, toggleDarkMode, setFontSize, toggleAnimations, resetSettings, clearSettingsCookies, type Settings } from '$lib/settings';
+    import { settings, toggleDarkMode, setFontSize, toggleAnimations, resetSettings, type Settings } from '$lib/settings';
     import ToggleSwitch from '$lib/components/ToggleSwitch.svelte';
     
     let currentSettings: Settings;
@@ -15,13 +15,6 @@
     function handleReset() {
         if (confirm('Weet je zeker dat je alle instellingen wilt resetten naar de standaardwaarden?')) {
             resetSettings();
-        }
-    }
-    
-    function handleClearCookies() {
-        if (confirm('Weet je zeker dat je alle cookies wilt wissen? (Voor debugging)')) {
-            clearSettingsCookies();
-            location.reload();
         }
     }
 
@@ -106,16 +99,6 @@
                     </div>
                     <button class="btn btn-outline" on:click={handleReset}>
                         Reset instellingen
-                    </button>
-                </div>
-                
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <h3>Cookies wissen</h3>
-                        <p>Verwijder alle opgeslagen voorkeuren (voor debugging)</p>
-                    </div>
-                    <button class="btn btn-outline" on:click={handleClearCookies}>
-                        Wis cookies
                     </button>
                 </div>
             </section>
