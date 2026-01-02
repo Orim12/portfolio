@@ -75,7 +75,7 @@
                 <section class="project-links">
                     <h2>Links</h2>
                     <a href={project.url} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                        Bekijk live project
+                        Bekijk project op github
                     </a>
                 </section>
             {/if}

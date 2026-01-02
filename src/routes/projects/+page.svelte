@@ -71,7 +71,7 @@
                         </a>
                         {#if project.url}
                             <a href={project.url} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                                Live demo
+                                github page
                             </a>
                         {/if}
                     </div>
