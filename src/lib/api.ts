@@ -6,14 +6,15 @@ export interface GeneralData {
     projectsAantal: any;
     ervaringJaren: any;
     klantenAantal: any;
+    cvUrl?: string;
 }
 
 // Base URL voor de API - uit environment variabelen of fallback
-const API_BASE_URL = env.PUBLIC_API_BASE_URL || 'https://mirovaassen.nl/api';
+const API_BASE_URL = env.PUBLIC_API_BASE_URL || 'https://backend.mirovaassen.nl/api';
 
 // Helper functie om de base URL voor media bestanden te krijgen
 export function getMediaBaseUrl(): string {
-    return env.PUBLIC_MEDIA_BASE_URL || 'https://mirovaassen.nl';
+    return env.PUBLIC_MEDIA_BASE_URL || 'https://backend.mirovaassen.nl';
 }
 
 export class ProjectsApiError extends Error {
@@ -163,6 +164,47 @@ export async function fetchGeneralData(fetchFn: typeof fetch = fetch): Promise<G
 
         throw new ProjectsApiError(
             `Failed to fetch general data: ${error instanceof Error ? error.message : 'Unknown error'}`
+        );
+    }
+}
+
+export async function fetchCvUrl(fetchFn: typeof fetch = fetch): Promise<string> {
+    try {
+        const url = `${API_BASE_URL}/media`;
+        console.log('Fetching CV media from:', url);
+        const response = await fetchFn(url, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('CV media error response:', errorText);
+            throw new ProjectsApiError(
+                `Failed to fetch CV media: ${response.status} ${response.statusText}`,
+                response.status
+            );
+        }
+
+        const data = await response.json();
+        const docs = Array.isArray(data?.docs) ? data.docs : [];
+        const cvDoc = docs.find((doc: { filename?: string }) => doc.filename === 'cv.pdf');
+
+        if (!cvDoc?.url) {
+            throw new ProjectsApiError('CV document not found in media response');
+        }
+
+        const mediaBaseUrl = getMediaBaseUrl();
+        const cvUrl = `${mediaBaseUrl}${cvDoc.url}`;
+        console.log('Successfully fetched CV URL');
+        return cvUrl;
+    } catch (error) {
+        console.error('Failed to fetch CV URL:', error);
+        throw new ProjectsApiError(
+            `Failed to fetch CV URL: ${error instanceof Error ? error.message : 'Unknown error'}`
         );
     }
 }

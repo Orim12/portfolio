@@ -1,16 +1,21 @@
-import { fetchGeneralData } from '$lib/api.js';
+import { fetchCvUrl, fetchGeneralData } from '$lib/api.js';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ fetch }) => {
     try {
-        const generalData = await fetchGeneralData(fetch);
+        const [generalData, cvUrl] = await Promise.all([
+            fetchGeneralData(fetch),
+            fetchCvUrl(fetch)
+        ]);
         return {
-            generalData
+            generalData,
+            cvUrl
         };
     } catch (error) {
         console.error('Failed to load general data:', error);
         return {
-            generalData: null
+            generalData: null,
+            cvUrl: null
         };
     }
 };
