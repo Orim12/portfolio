@@ -74,6 +74,11 @@
                                 github page
                             </a>
                         {/if}
+                        {#if project.liveurl}
+                            <a href={project.liveurl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                                Live omgeving
+                            </a>
+                        {/if}
                     </div>
                 </article>
             {/each}
