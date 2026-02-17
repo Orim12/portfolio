@@ -16,6 +16,7 @@ export interface Afbeelding {
     thumbnailURL: string | null;
     createdAt: string;
     updatedAt: string;
+    cloudinaryUrl: string;
 }
 
 export interface Project {

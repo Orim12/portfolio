@@ -6,7 +6,6 @@
     export let data: PageData;
     
     $: project = data.project as Project;
-    $: mediaBaseUrl = getMediaBaseUrl();
     
     // Helper functie om datum te formatteren
     function formatDate(dateString: string): string {
@@ -46,7 +45,7 @@
         {#if project.afbeelding}
             <div class="project-image">
                 <img 
-                    src='{mediaBaseUrl}{project.afbeelding.url}' 
+                    src='{project.afbeelding.cloudinaryUrl}' 
                     alt={project.afbeelding.alt || project.naam}
                 />
             </div>
