@@ -193,12 +193,11 @@ export async function fetchCvUrl(fetchFn: typeof fetch = fetch): Promise<string>
         const docs = Array.isArray(data?.docs) ? data.docs : [];
         const cvDoc = docs.find((doc: { filename?: string }) => doc.filename === 'cv.pdf');
 
-        if (!cvDoc?.url) {
+        if (!cvDoc?.cloudinaryUrl) {
             throw new ProjectsApiError('CV document not found in media response');
         }
 
-        const mediaBaseUrl = getMediaBaseUrl();
-        const cvUrl = `${mediaBaseUrl}${cvDoc.url}`;
+        const cvUrl = `${cvDoc.cloudinaryUrl}`;
         console.log('Successfully fetched CV URL');
         return cvUrl;
     } catch (error) {
