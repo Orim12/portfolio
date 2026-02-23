@@ -141,7 +141,7 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="/assets/imgs/profecioneel-foto.jpg" alt="Profile" class="profile-image" />
+                <img src={data?.generalData?.profielFoto?.cloudinaryUrl} alt="Profile" class="profile-image" />
             </div>
         </div>
     </section>
