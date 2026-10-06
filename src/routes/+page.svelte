@@ -141,7 +141,7 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src={data?.generalData?.profielFoto?.cloudinaryUrl} alt="Profile" class="profile-image" />
+                <img src="/foto" alt="Profile" class="profile-image" />
             </div>
         </div>
     </section>
@@ -220,16 +220,6 @@
                                 <span class="skill-tag">Godot</span>
                                 <span class="skill-tag">C#</span>
                                 <span class="skill-tag">GDScript</span>
-                                <span class="skill-tag">Game Design</span>
-                            </div>
-                        </div>
-                        <div class="skill-category">
-                            <h4>Mod Development</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Minecraft Mods (Fabric/Forge)</span>
-                                <span class="skill-tag">Java</span>
-                                <span class="skill-tag">Asset Creation</span>
-                                <span class="skill-tag">Scripting</span>
                             </div>
                         </div>
                     </div>
@@ -255,13 +245,6 @@
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
-<svg viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6.12 20.75C5.36 20.75 4.64 20.45 4.09 19.91C2.97 18.79 2.97 16.98 4.09 15.86L9.6 10.35C9.1 8.40997 9.64 6.31997 11.06 4.89997C12.49 3.46997 14.59 2.90997 16.54 3.43997C16.8 3.50997 17 3.70997 17.07 3.96997C17.14 4.22997 17.07 4.49997 16.88 4.68997L14.43 7.13997L14.95 9.04997L16.86 9.56997L19.31 7.11997C19.5 6.92997 19.78 6.85997 20.03 6.92997C20.29 6.99997 20.49 7.19997 20.56 7.45997C21.09 9.40997 20.54 11.51 19.1 12.94C17.68 14.36 15.59 14.9 13.65 14.4L8.14 19.91C7.6 20.45 6.88 20.75 6.12 20.75ZM14.68 4.76997C13.72 4.84997 12.81 5.26997 12.11 5.96997C10.97 7.10997 10.6 8.77997 11.15 10.32C11.25 10.59 11.18 10.9 10.97 11.1L5.14 16.93C4.61 17.46 4.61 18.33 5.14 18.86C5.4 19.12 5.74 19.26 6.11 19.26C6.47 19.26 6.82 19.12 7.07 18.86L12.9 13.03C13.11 12.82 13.41 12.76 13.68 12.85C15.22 13.39 16.89 13.03 18.03 11.89C18.73 11.19 19.14 10.28 19.23 9.31997L17.6 10.95C17.41 11.14 17.13 11.21 16.87 11.14L14.13 10.39C13.87 10.32 13.67 10.12 13.6 9.85997L12.85 7.11997C12.78 6.85997 12.85 6.57997 13.04 6.38997L14.67 4.75997L14.68 4.76997Z" fill="#fff"></path> </g></svg>
-                    </div>
-                    <h3>Mod Development</h3>
-                    <p>ik ben hier niet het beste in, maar ik kan helpen met de basis. want ik doe dit voor de lol.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
                         <svg viewBox="0 0 512 512" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><defs><style>.cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:20px;}.cls-2{fill:#fff;}</style></defs><title></title><path class="cls-1" d="M254,183.7h0c-72.82-1.22-101.38,22.29-111.25,39-14.72,24.92-27,81.37,7.64,102.23,10.92,6.57,25.37,3.09,37.4-5.82,19-14.09,41.81-22.21,65.49-22.21h5.46c23.68,0,46.47,8.12,65.49,22.21,12,8.91,26.48,12.39,37.4,5.82,34.67-20.86,22.36-77.31,7.64-102.23-9.87-16.72-38.43-40.23-111.25-39h-4Z"></path><path class="cls-2" d="M201.9,233.93V222.36a2.3,2.3,0,0,0-2.3-2.31H188a2.3,2.3,0,0,0-2.3,2.31v11.57a2.31,2.31,0,0,1-2.31,2.31H171.83a2.3,2.3,0,0,0-2.3,2.3v11.58a2.3,2.3,0,0,0,2.3,2.3h11.58a2.31,2.31,0,0,1,2.31,2.3V266.3a2.3,2.3,0,0,0,2.3,2.3H199.6a2.3,2.3,0,0,0,2.3-2.3V254.72a2.3,2.3,0,0,1,2.3-2.3h11.58a2.3,2.3,0,0,0,2.3-2.3V238.54a2.3,2.3,0,0,0-2.3-2.3H204.2A2.3,2.3,0,0,1,201.9,233.93Z"></path><circle class="cls-2" cx="328.06" cy="228.14" r="8.09"></circle><circle class="cls-2" cx="328.06" cy="228.14" r="8.09"></circle><circle class="cls-2" cx="328.06" cy="260.51" r="8.09"></circle><circle class="cls-2" cx="344.24" cy="244.33" r="8.09"></circle><circle class="cls-2" cx="344.24" cy="244.33" r="8.09"></circle><circle class="cls-2" cx="311.87" cy="244.33" r="8.09"></circle></g></svg>
                     </div>
                     <h3>Game Development</h3>
@@ -280,39 +263,7 @@
             <p class="contact-subtitle">Heb je een project in gedachten? Neem contact met me op!</p>
             <div class="contact-content">
                 <div class="contact-info">
-                    <div class="contact-item">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                            <polyline points="22,6 12,13 2,6"/>
-                        </svg>
-                        <span>&#109;&#105;&#114;&#111;&#64;&#109;&#105;&#114;&#111;&#118;&#97;&#97;&#115;&#115;&#101;&#110;&#46;&#110;&#108;</span>
-                    </div>
-                    <div class="contact-item">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
-                        <span>Nederland</span>
-                    </div>
-                </div>
-                <div class="contact-actions">
-                    <a href="&#77;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#105;&#114;&#111;&#64;&#109;&#105;&#114;&#111;&#118;&#97;&#97;&#115;&#115;&#101;&#110;&#46;&#110;&#108;" class="btn btn-primary">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                            <polyline points="22,6 12,13 2,6"/>
-                        </svg>
-                        Stuur een Email
-                    </a>
-                    <a href={data.cvUrl || data.generalData?.cvUrl} target="_blank" class="btn btn-secondary">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                            <polyline points="14,2 14,8 20,8"/>
-                            <line x1="16" y1="13" x2="8" y2="13"/>
-                            <line x1="16" y1="17" x2="8" y2="17"/>
-                            <polyline points="10,9 9,9 8,9"/>
-                        </svg>
-                        Download CV
-                    </a>
+                    <a href="/contact" class="btn btn-primary">Neem Contact Op</a>
                 </div>
             </div>
         </div>
@@ -636,32 +587,6 @@
     }
 
     .contact-info {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .contact-item {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 1rem;
-        background-color: var(--input-bg);
-        border-radius: 8px;
-        border: 1px solid var(--border-color);
-    }
-
-    .contact-item svg {
-        color: var(--accent-color);
-        flex-shrink: 0;
-    }
-
-    .contact-item span {
-        color: var(--text-color);
-        font-weight: 500;
-    }
-
-    .contact-actions {
         display: flex;
         flex-direction: column;
         gap: 1rem;
