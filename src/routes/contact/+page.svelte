@@ -1,155 +1,239 @@
-<form action="/contact" class="fs-form" target="_top" method="POST">
-	<div class="fs-field">
-		<label class="fs-label" for="name">Your Name</label>
-		<input class="fs-input" id="name" name="name" required />
+<script lang="ts">
+	let submitting = false
+	let feedback: { type: 'success' | 'error'; message: string } | null = null
+
+	async function handleSubmit(event: SubmitEvent) {
+		event.preventDefault()
+		const form = event.currentTarget as HTMLFormElement
+		submitting = true
+		feedback = null
+
+		try {
+			const response = await fetch('/contact', {
+				method: 'POST',
+				body: new FormData(form),
+			})
+			const result = (await response.json()) as { message?: string }
+
+			if (!response.ok) {
+				throw new Error(result.message || 'Het bericht kon niet worden verstuurd.')
+			}
+
+			form.reset()
+			feedback = { type: 'success', message: result.message || 'Je bericht is verstuurd.' }
+		} catch (error) {
+			feedback = {
+				type: 'error',
+				message: error instanceof Error
+					? error.message
+					: 'Het bericht kon niet worden verstuurd. Probeer het later opnieuw.',
+			}
+		} finally {
+			submitting = false
+		}
+	}
+</script>
+
+<svelte:head>
+	<title>Contact - Portfolio</title>
+	<meta name="description" content="Neem contact op voor vragen, ideeën of samenwerkingen" />
+</svelte:head>
+
+<div class="contact-container">
+	<header class="contact-header">
+		<h1>Neem contact op</h1>
+		<p>Heb je een vraag, idee of wil je samenwerken? Stuur gerust een bericht.</p>
+	</header>
+
+	<div class="contact-content">
+		<section class="contact-card card" aria-labelledby="form-title">
+			<div class="card-heading">
+				<h2 id="form-title">Stuur een bericht</h2>
+				<p>Ik probeer zo snel mogelijk te reageren.</p>
+			</div>
+
+			<form action="/contact" method="POST" on:submit={handleSubmit}>
+				<div class="form-field">
+					<label for="name">Naam</label>
+					<input
+						class="form-control"
+						id="name"
+						name="name"
+						type="text"
+						autocomplete="name"
+						required
+					/>
+				</div>
+
+				<div class="form-field">
+					<label for="email">E-mailadres</label>
+					<input
+						class="form-control"
+						id="email"
+						name="email"
+						type="email"
+						autocomplete="email"
+						required
+					/>
+					<p class="field-description">Hiermee kan ik je beantwoorden.</p>
+				</div>
+
+				<div class="form-field">
+					<label for="message">Bericht</label>
+					<textarea
+						class="form-control"
+						id="message"
+						name="message"
+						rows="6"
+						required
+					></textarea>
+					<p class="field-description">Waar kan ik je mee helpen?</p>
+				</div>
+
+				{#if feedback}
+					<p
+						class:success-message={feedback.type === 'success'}
+						class:error-message={feedback.type === 'error'}
+						role="status"
+					>
+						{feedback.message}
+					</p>
+				{/if}
+
+				<button class="btn btn-primary submit-button" type="submit" disabled={submitting}>
+					{submitting ? 'Versturen...' : 'Bericht versturen'}
+				</button>
+			</form>
+		</section>
 	</div>
-	<div class="fs-field">
-		<label class="fs-label" for="email">Email</label>
-		<input class="fs-input" id="email" name="email" required />
-		<p class="fs-description">This will help me respond to your query via an email.</p>
-	</div>
-	<div class="fs-field">
-		<label class="fs-label" for="message">Message</label>
-		<textarea class="fs-textarea" id="message" name="message" required></textarea>
-		<p class="fs-description">What would you like to discuss?</p>
-	</div>
-	<div class="fs-button-group">
-		<button class="btn btn-primary" type="submit">Submit</button>
-	</div>
-</form>
+</div>
 
 <style>
-	.fs-form {
-		display: grid;
-		gap: 3rem;
-		align-items: center;
-		max-width: 800px;
+	.contact-container {
+		max-width: 900px;
 		margin: 0 auto;
-		background-color: var(--card-bg);
-    border-radius: 35px;
-	}
-	.fs-field {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-    margin-left: 1rem;
-    margin-top: 1rem;
-	}
-	.fs-label {
-	}
-	.fs-input {
-	}
-	.fs-description {
-	}
-	.fs-textarea {
-	}
-	.fs-button-group {
-    display: flex;
-        flex-direction: column;
-        gap: 1rem;
+		padding: 2rem 1rem 4rem;
 	}
 
-	/* Buttons */
-	.btn {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		padding: 0.8rem 1.5rem;
-		border-radius: 8px;
-		text-decoration: none;
-		font-weight: 500;
-		transition: all 0.3s ease;
-		cursor: pointer;
-		border: none;
-		font-size: 1rem;
-		justify-content: center;
-		white-space: nowrap;
+	.contact-header {
+		margin-bottom: 3rem;
+		text-align: center;
 	}
 
-	.btn-primary {
-		background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
-		color: white;
-		box-shadow: 0 4px 15px rgba(77, 166, 217, 0.3);
+	.contact-header h1 {
+		margin: 0 0 0.5rem;
+		color: var(--text-color);
+		font-size: 2.5rem;
 	}
 
-	.btn-primary:hover {
+	.contact-header p {
+		max-width: 600px;
+		margin: 0 auto;
+		color: var(--text-color);
+		font-size: 1.1rem;
+		opacity: 0.8;
+	}
+
+	.contact-content {
+		max-width: 700px;
+		margin: 0 auto;
+	}
+
+	.contact-card {
+		padding: 2rem;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.contact-card:hover {
 		transform: translateY(-2px);
-		box-shadow: 0 6px 20px rgba(77, 166, 217, 0.4);
+		box-shadow: 0 4px 20px var(--card-shadow);
 	}
 
-	/* Responsive Design */
-	@media (max-width: 768px) {
-		.hero-content {
-			grid-template-columns: 1fr;
-			text-align: center;
-			gap: 2rem;
-		}
-
-		.hero-text h1 {
-			font-size: 2.5rem;
-		}
-
-		.profile-image {
-			width: 200px;
-			height: 200px;
-		}
-
-		.about-content {
-			grid-template-columns: 1fr;
-			gap: 2rem;
-		}
-
-		.stats {
-			justify-content: center;
-		}
-
-		.services-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.contact-content {
-			grid-template-columns: 1fr;
-			text-align: center;
-		}
-
-		.contact-actions {
-			align-items: center;
-		}
-
-		.btn {
-			width: 200px;
-		}
-
-		.section-container {
-			padding: 2rem 1rem;
-		}
-
-		.section-title {
-			font-size: 2rem;
-		}
+	.card-heading {
+		margin-bottom: 2rem;
 	}
 
-	@media (max-width: 480px) {
-		.hero-text h1 {
+	.card-heading h2 {
+		margin: 0 0 0.5rem;
+		color: var(--text-color);
+		font-size: 1.5rem;
+	}
+
+	.card-heading p {
+		margin: 0;
+		color: var(--text-color);
+		opacity: 0.7;
+	}
+
+	form {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	.form-field {
+		display: grid;
+		gap: 0.5rem;
+	}
+
+	label {
+		color: var(--text-color);
+		font-weight: 600;
+	}
+
+	.form-control {
+		min-height: 46px;
+	}
+
+	textarea.form-control {
+		min-height: 150px;
+		resize: vertical;
+	}
+
+	.field-description {
+		margin: 0;
+		color: var(--text-color);
+		font-size: 0.9rem;
+		opacity: 0.7;
+	}
+
+	.success-message,
+	.error-message {
+		margin: 0;
+		font-weight: 500;
+	}
+
+	.success-message {
+		color: var(--success-color);
+	}
+
+	.error-message {
+		color: var(--error-color);
+	}
+
+	.submit-button {
+		width: fit-content;
+		margin-top: 0.5rem;
+	}
+
+	@media (max-width: 600px) {
+		.contact-container {
+			padding: 2rem 1rem 3rem;
+		}
+
+		.contact-header {
+			margin-bottom: 2rem;
+		}
+
+		.contact-header h1 {
 			font-size: 2rem;
 		}
 
-		.rotating-skills {
-			font-size: 1.2rem;
+		.contact-card {
+			padding: 1.5rem;
 		}
 
-		.skill-text {
-			min-width: 150px;
-		}
-
-		.hero-actions {
-			flex-direction: column;
-			align-items: center;
-		}
-
-		.stats {
-			flex-direction: column;
-			gap: 1rem;
+		.submit-button {
+			width: 100%;
 		}
 	}
 </style>
