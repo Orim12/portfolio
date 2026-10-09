@@ -30,6 +30,11 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
 			return json({ message: 'Vul alle velden in.' }, { status: 400 })
 		}
 
+		const normalizedEmail = email.trim().toLowerCase()
+		if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
+			return json({ message: 'Vul een geldig e-mailadres in.' }, { status: 400 })
+		}
+
 		const response = await fetch(`${API_BASE_URL}/forms`, {
 			method: 'POST',
 			headers: {
@@ -38,7 +43,7 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
 			},
 			body: JSON.stringify({
 				name: name.trim(),
-				email: email.trim(),
+				email: normalizedEmail,
 				message: message.trim(),
 			}),
 		})
@@ -46,6 +51,13 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
 		if (!response.ok) {
 			const details = await response.text()
 			console.error('Payload contact form request failed:', response.status, details)
+			if (response.status === 400) {
+				return json(
+					{ message: 'Controleer de ingevulde gegevens en probeer het opnieuw.' },
+					{ status: 400 },
+				)
+			}
+
 			return json(
 				{ message: 'Het bericht kon niet worden verstuurd. Probeer het later opnieuw.' },
 				{ status: 502 },
