@@ -27,7 +27,7 @@ const API_BASE_URL = env.PUBLIC_API_BASE_URL;
 
 // Helper functie om de base URL voor media bestanden te krijgen
 export function getMediaBaseUrl(): string {
-    return env.PUBLIC_MEDIA_BASE_URL;
+    return env.PUBLIC_MEDIA_BASE_URL || "";
 }
 
 export class ProjectsApiError extends Error {
