@@ -9,12 +9,25 @@ export interface GeneralData {
     cvUrl?: string;
 }
 
+export interface AboutMe {
+    heroDescription: string;
+    rotatingSkills?: { skill: string }[];
+    aboutTitle: string;
+    aboutParagraphOne: string;
+    aboutParagraphTwo: string;
+    servicesTitle: string;
+    webDevelopmentTitle: string;
+    webDevelopmentDescription: string;
+    gameDevelopmentTitle: string;
+    gameDevelopmentDescription: string;
+}
+
 // Base URL voor de API - uit environment variabelen of fallback
-const API_BASE_URL = env.PUBLIC_API_BASE_URL || 'https://backend.mirovaassen.nl/api';
+const API_BASE_URL = env.PUBLIC_API_BASE_URL;
 
 // Helper functie om de base URL voor media bestanden te krijgen
 export function getMediaBaseUrl(): string {
-    return env.PUBLIC_MEDIA_BASE_URL || 'https://backend.mirovaassen.nl';
+    return env.PUBLIC_MEDIA_BASE_URL;
 }
 
 export class ProjectsApiError extends Error {
@@ -164,6 +177,38 @@ export async function fetchGeneralData(fetchFn: typeof fetch = fetch): Promise<G
 
         throw new ProjectsApiError(
             `Failed to fetch general data: ${error instanceof Error ? error.message : 'Unknown error'}`
+        );
+    }
+}
+
+export async function fetchAboutMe(fetchFn: typeof fetch = fetch): Promise<AboutMe> {
+    try {
+        const url = `${API_BASE_URL}/globals/about-me`;
+        const response = await fetchFn(url, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('About me error response:', errorText);
+            throw new ProjectsApiError(
+                `Failed to fetch about me data: ${response.status} ${response.statusText}`,
+                response.status
+            );
+        }
+
+        return await response.json() as AboutMe;
+    } catch (error) {
+        if (error instanceof ProjectsApiError) {
+            throw error;
+        }
+
+        throw new ProjectsApiError(
+            `Failed to fetch about me data: ${error instanceof Error ? error.message : 'Unknown error'}`
         );
     }
 }

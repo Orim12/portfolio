@@ -6,9 +6,10 @@
     export let data: PageData;
 
     const jaar = data.generalData?.ervaringJaren || 0;
+    const aboutMe = data.aboutMe;
 
     let currentSkill = 0;
-    const skills = [
+    const skills = aboutMe?.rotatingSkills?.map(({ skill }) => skill) || [
         'backend Development',
         'JavaScript & TypeScript',
         'Svelte & SvelteKit',
@@ -119,9 +120,7 @@
                     <span class="skill-cursor" aria-hidden="true"></span>
                 </div>
                 <p class="hero-description">
-                    Gepassioneerde full-stack developer die moderne web applicaties bouwt 
-                    met focus op gebruikerservaring en clean code. Altijd op zoek naar nieuwe 
-                    technologieën en uitdagingen.
+                    {aboutMe?.heroDescription || 'Gepassioneerde full-stack developer die moderne web applicaties bouwt met focus op gebruikerservaring en clean code. Altijd op zoek naar nieuwe technologieën en uitdagingen.'}
                 </p>
                 <div class="hero-actions">
                     <a href="/projects" class="btn btn-primary">
@@ -149,21 +148,14 @@
     <!-- About Section -->
     <section class="about" id="about">
         <div class="section-container">
-            <h2 class="section-title">Over Mij</h2>
+            <h2 class="section-title">{aboutMe?.aboutTitle || 'Over Mij'}</h2>
             <div class="about-content">
                 <div class="about-text">
                     <p>
-                        Met ongeveer {jaar} jaar ervaring in webdevelopment richt ik mij vooral op het bouwen van 
-                        schaalbare en efficiënte backend-systemen. Naast webdevelopment ben ik ook actief bezig met 
-                        game development en mod development, waar ik mijn creativiteit en technische kennis kan 
-                        combineren om unieke ervaringen en uitbreidingen te ontwikkelen.
+                        {aboutMe?.aboutParagraphOne || `Met ongeveer ${jaar} jaar ervaring in webdevelopment richt ik mij vooral op het bouwen van schaalbare en efficiënte backend-systemen. Naast webdevelopment ben ik ook actief bezig met game development en mod development, waar ik mijn creativiteit en technische kennis kan combineren om unieke ervaringen en uitbreidingen te ontwikkelen.`}
                     </p>
                     <p>
-                        Ik werk graag met de nieuwste technologieën en frameworks en ben altijd op zoek naar manieren 
-                        om mijn projecten naar een hoger niveau te tillen. Optimalisatie, toegankelijkheid en 
-                        gebruiksvriendelijkheid staan voor mij centraal — of het nu gaat om een webapplicatie, een game 
-                        of een mod. Dankzij mijn brede interesse in zowel software- als game-technologie kan ik 
-                        innovatieve oplossingen creëren die passen bij de behoeften van ieder project.
+                        {aboutMe?.aboutParagraphTwo || 'Ik werk graag met de nieuwste technologieën en frameworks en ben altijd op zoek naar manieren om mijn projecten naar een hoger niveau te tillen. Optimalisatie, toegankelijkheid en gebruiksvriendelijkheid staan voor mij centraal — of het nu gaat om een webapplicatie, een game of een mod. Dankzij mijn brede interesse in zowel software- als game-technologie kan ik innovatieve oplossingen creëren die passen bij de behoeften van ieder project.'}
                     </p>
 
                     <div class="stats">
@@ -231,7 +223,7 @@
     <!-- Services Section -->
     <section class="services">
         <div class="section-container">
-            <h2 class="section-title">Wat Ik Doe</h2>
+            <h2 class="section-title">{aboutMe?.servicesTitle || 'Wat Ik Doe'}</h2>
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon">
@@ -240,17 +232,15 @@
                             <polyline points="8,6 2,12 8,18"/>
                         </svg>
                     </div>
-                    <h3>Web Development</h3>
-                    <p>Ik richt me op de backend van webontwikkeling, met een focus op server-side logica, database-integratie en API-ontwikkeling.</p>
+                    <h3>{aboutMe?.webDevelopmentTitle || 'Web Development'}</h3>
+                    <p>{aboutMe?.webDevelopmentDescription || 'Ik richt me op de backend van webontwikkeling, met een focus op server-side logica, database-integratie en API-ontwikkeling.'}</p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <svg viewBox="0 0 512 512" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><defs><style>.cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:20px;}.cls-2{fill:#fff;}</style></defs><title></title><path class="cls-1" d="M254,183.7h0c-72.82-1.22-101.38,22.29-111.25,39-14.72,24.92-27,81.37,7.64,102.23,10.92,6.57,25.37,3.09,37.4-5.82,19-14.09,41.81-22.21,65.49-22.21h5.46c23.68,0,46.47,8.12,65.49,22.21,12,8.91,26.48,12.39,37.4,5.82,34.67-20.86,22.36-77.31,7.64-102.23-9.87-16.72-38.43-40.23-111.25-39h-4Z"></path><path class="cls-2" d="M201.9,233.93V222.36a2.3,2.3,0,0,0-2.3-2.31H188a2.3,2.3,0,0,0-2.3,2.31v11.57a2.31,2.31,0,0,1-2.31,2.31H171.83a2.3,2.3,0,0,0-2.3,2.3v11.58a2.3,2.3,0,0,0,2.3,2.3h11.58a2.31,2.31,0,0,1,2.31,2.3V266.3a2.3,2.3,0,0,0,2.3,2.3H199.6a2.3,2.3,0,0,0,2.3-2.3V254.72a2.3,2.3,0,0,1,2.3-2.3h11.58a2.3,2.3,0,0,0,2.3-2.3V238.54a2.3,2.3,0,0,0-2.3-2.3H204.2A2.3,2.3,0,0,1,201.9,233.93Z"></path><circle class="cls-2" cx="328.06" cy="228.14" r="8.09"></circle><circle class="cls-2" cx="328.06" cy="228.14" r="8.09"></circle><circle class="cls-2" cx="328.06" cy="260.51" r="8.09"></circle><circle class="cls-2" cx="344.24" cy="244.33" r="8.09"></circle><circle class="cls-2" cx="344.24" cy="244.33" r="8.09"></circle><circle class="cls-2" cx="311.87" cy="244.33" r="8.09"></circle></g></svg>
                     </div>
-                    <h3>Game Development</h3>
-                    <p>ik vind het leuk om te experimenteren met game-ideeën en prototypes. Het proces van
-                    spelontwerp en ontwikkeling fascineert me, en ik geniet van de creatieve uitdagingen
-                    die het met zich meebrengt.</p>
+                    <h3>{aboutMe?.gameDevelopmentTitle || 'Game Development'}</h3>
+                    <p>{aboutMe?.gameDevelopmentDescription || 'Ik vind het leuk om te experimenteren met game-ideeën en prototypes. Het proces van spelontwerp en ontwikkeling fascineert me, en ik geniet van de creatieve uitdagingen die het met zich meebrengt.'}</p>
                 </div>
             </div>
         </div>
