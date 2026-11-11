@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# IDE
+/.idea/*
+!/.idea/runConfigurations
+
+# Testing
+/coverage
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# Frameworks and build output
+/.next/
+/out/
+/build
+/.svelte-kit
+.output
+
+# Deployment
+.vercel
+.netlify
+.wrangler
+
+# Environment and local files
+.env
+.env.*
+!.env.example
+!.env.test
+.env*.local
+/media
+/bin/mongo-mem-server/storage
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS and miscellaneous files
+.DS_Store
+Thumbs.db
+*.pem

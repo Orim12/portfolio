@@ -1,0 +1,15 @@
+{
+  "name": "portfolio",
+  "version": "2.0.0",
+  "description": "Website and backoffice for portfolio ",
+  "scripts": {
+    "dev": "concurrently -n frontend,backend,memdb \"yarn frontend\" \"yarn backend\" \"yarn memdb\"",
+    "memdb": "yarn --cwd backend memdb",
+    "frontend": "yarn --cwd frontend dev",
+    "backend": "yarn --cwd backend dev"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "devDependencies": {}
+}
