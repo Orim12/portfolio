@@ -1,22 +1,38 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { settings } from '$lib/settings';
+    import { invalidateAll } from '$app/navigation';
+    import { locale, setLocale, translate, type Locale } from '$lib/i18n';
     import '../app.css';
 
+    $: t = (key: string) => translate($locale, key);
+
     onMount(() => {
-        // Zorg ervoor dat settings worden toegepast bij laden
-        settings.subscribe(value => {
-            // Settings worden automatisch toegepast via de store
+        document.documentElement.lang = $locale;
+        return locale.subscribe((value) => {
+            document.documentElement.lang = value;
         });
     });
+
+    async function handleLocaleChange(event: Event) {
+        setLocale((event.currentTarget as HTMLSelectElement).value as Locale);
+        await invalidateAll();
+    }
 </script>
 
 <div class="app">
     <header class="main-header">
         <nav class="main-nav">
-            <a href="/" class="nav-link">Home</a>
-            <a href="/projects" class="nav-link">Projecten</a>
-            <a href="/settings" class="nav-link">Instellingen</a>
+            <a href="/" class="nav-link">{t('nav.home')}</a>
+            <a href="/projects" class="nav-link">{t('nav.projects')}</a>
+            <a href="/contact" class="nav-link">{t('nav.contact')}</a>
+            <a href="/settings" class="nav-link">{t('nav.settings')}</a>
+            <label class="locale-selector">
+                <span class="sr-only">{t('language.label')}</span>
+                <select value={$locale} on:change={handleLocaleChange} aria-label={t('language.label')}>
+                    <option value="en">{t('language.english')}</option>
+                    <option value="nl">{t('language.dutch')}</option>
+                </select>
+            </label>
         </nav>
     </header>
 
@@ -53,6 +69,7 @@
         padding: 0 1rem;
         display: flex;
         gap: 2rem;
+        align-items: center;
     }
 
     .nav-link {
@@ -64,6 +81,26 @@
 
     .nav-link:hover {
         color: var(--accent-color);
+    }
+
+    .locale-selector select {
+        color: var(--text-color);
+        background: var(--header-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        padding: 0.35rem 0.5rem;
+    }
+
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
     }
 
     .main-content {

@@ -1,11 +1,13 @@
 import { fetchAboutMe, fetchCvUrl, fetchGeneralData } from '$lib/api.js';
 import type { PageLoad } from './$types';
+import { get } from 'svelte/store';
+import { locale } from '$lib/i18n';
 
 export const load: PageLoad = async ({ fetch }) => {
     try {
         const [generalData, aboutMe, cvUrl] = await Promise.all([
-            fetchGeneralData(fetch),
-            fetchAboutMe(fetch),
+            fetchGeneralData(fetch, get(locale)),
+            fetchAboutMe(fetch, get(locale)),
             fetchCvUrl(fetch)
         ]);
         return {

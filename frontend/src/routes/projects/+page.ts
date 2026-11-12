@@ -1,6 +1,8 @@
 import { fetchProjects, ProjectsApiError } from '$lib/api';
 import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
+import { get } from 'svelte/store';
+import { locale } from '$lib/i18n';
 
 export const load: PageLoad = async ({ url, fetch }) => {
     try {
@@ -13,7 +15,7 @@ export const load: PageLoad = async ({ url, fetch }) => {
             throw error(400, 'Invalid pagination parameters');
         }
 
-        const projectsData = await fetchProjects(page, limit, fetch);
+        const projectsData = await fetchProjects(page, limit, fetch, get(locale));
         
         return {
             projects: projectsData,

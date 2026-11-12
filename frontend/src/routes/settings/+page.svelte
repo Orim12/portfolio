@@ -1,8 +1,10 @@
 <script lang="ts">
     import { settings, toggleDarkMode, setFontSize, toggleAnimations, resetSettings, type Settings } from '$lib/settings';
     import ToggleSwitch from '$lib/components/ToggleSwitch.svelte';
+    import { locale, translate } from '$lib/i18n';
     
     let currentSettings: Settings;
+    $: t = (key: string) => translate($locale, key);
     
     // Subscribe to settings store
     $: currentSettings = $settings;
@@ -13,7 +15,7 @@
     }
     
     function handleReset() {
-        if (confirm('Weet je zeker dat je alle instellingen wilt resetten naar de standaardwaarden?')) {
+        if (confirm(t('settings.confirmReset'))) {
             resetSettings();
         }
     }
@@ -28,14 +30,14 @@
 </script>
 
 <svelte:head>
-    <title>Instellingen - Portfolio</title>
-    <meta name="description" content="Pas je voorkeuren aan voor een gepersonaliseerde ervaring" />
+    <title>{t('settings.title')}</title>
+    <meta name="description" content={t('settings.description')} />
 </svelte:head>
 
 <div class="settings-container">
     <header class="settings-header">
-        <h1>Instellingen</h1>
-        <p>Pas je voorkeuren aan voor een gepersonaliseerde ervaring</p>
+        <h1>{t('settings.heading')}</h1>
+        <p>{t('settings.intro')}</p>
     </header>
 
     <div class="settings-content">
@@ -43,62 +45,62 @@
             
             <!-- Uiterlijk sectie -->
             <section class="settings-section card">
-                <h2>🎨 Uiterlijk</h2>
+                <h2>🎨 {t('settings.appearance')}</h2>
                 
                 <div class="setting-item">
                     <div class="setting-info">
-                        <h3>Dark Mode</h3>
-                        <p>Gebruik een donker thema om je ogen te sparen (standaard ingeschakeld)</p>
+                        <h3>{t('settings.darkMode')}</h3>
+                        <p>{t('settings.darkModeDescription')}</p>
                     </div>
                     <ToggleSwitch 
                         checked={currentSettings.darkMode}
                         onChange={handleDarkModeChange}
                         id="dark-mode-toggle"
-                        ariaLabel="Dark mode in- of uitschakelen"
+                        ariaLabel={t('settings.darkMode')}
                     />
                 </div>
 
                 <div class="setting-item">
                     <div class="setting-info">
-                        <h3>Tekstgrootte</h3>
-                        <p>Kies de lettergrootte die het prettigst leest</p>
+                        <h3>{t('settings.fontSize')}</h3>
+                        <p>{t('settings.fontSizeDescription')}</p>
                     </div>
                     <select 
                         class="form-control select-control"
                         value={currentSettings.fontSize}
                         on:change={handleFontSizeChange}
                     >
-                        <option value="small">Klein</option>
-                        <option value="medium">Normaal</option>
-                        <option value="large">Groot</option>
+                        <option value="small">{t('settings.small')}</option>
+                        <option value="medium">{t('settings.medium')}</option>
+                        <option value="large">{t('settings.large')}</option>
                     </select>
                 </div>
 
                 <div class="setting-item">
                     <div class="setting-info">
-                        <h3>Animaties</h3>
-                        <p>Schakel animaties en overgangen in of uit</p>
+                        <h3>{t('settings.animations')}</h3>
+                        <p>{t('settings.animationsDescription')}</p>
                     </div>
                     <ToggleSwitch 
                         checked={currentSettings.animationsEnabled}
                         onChange={handleAnimationsChange}
                         id="animations-toggle"
-                        ariaLabel="Animaties in- of uitschakelen"
+                        ariaLabel={t('settings.animations')}
                     />
                 </div>
             </section>
 
             <!-- Geavanceerd sectie -->
             <section class="settings-section card">
-                <h2>🔧 Geavanceerd</h2>
+                <h2>🔧 {t('settings.advanced')}</h2>
                 
                 <div class="setting-item">
                     <div class="setting-info">
-                        <h3>Instellingen resetten</h3>
-                        <p>Herstel alle instellingen naar de standaardwaarden (dark mode blijft aan)</p>
+                        <h3>{t('settings.reset')}</h3>
+                        <p>{t('settings.resetDescription')}</p>
                     </div>
                     <button class="btn btn-outline" on:click={handleReset}>
-                        Reset instellingen
+                        {t('settings.resetButton')}
                     </button>
                 </div>
             </section>

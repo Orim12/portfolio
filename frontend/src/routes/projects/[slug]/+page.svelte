@@ -2,14 +2,16 @@
     import type { PageData } from './$types';
     import type { Project } from '$lib/types';
     import { getMediaBaseUrl } from '$lib/api';
+    import { locale, translate } from '$lib/i18n';
     
     export let data: PageData;
     
     $: project = data.project as Project;
+    $: t = (key: string) => translate($locale, key);
     
     // Helper functie om datum te formatteren
     function formatDate(dateString: string): string {
-        return new Date(dateString).toLocaleDateString('nl-NL', {
+        return new Date(dateString).toLocaleDateString($locale === 'nl' ? 'nl-NL' : 'en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
@@ -24,7 +26,7 @@
 
 <div class="project-detail-container">
     <nav class="breadcrumb">
-        <a href="/projects">← Terug naar projecten</a>
+        <a href="/projects">← {t('project.back')}</a>
     </nav>
 
     <article class="project-detail">
@@ -32,11 +34,11 @@
             <h1>{project.naam}</h1>
             <div class="project-meta">
                 <time datetime={project.createdAt}>
-                    Gemaakt op {formatDate(project.createdAt)}
+                    {t('project.created')} {formatDate(project.createdAt)}
                 </time>
                 {#if project.updatedAt !== project.createdAt}
                     <time datetime={project.updatedAt}>
-                        • Laatst bijgewerkt op {formatDate(project.updatedAt)}
+                        • {t('project.updated')} {formatDate(project.updatedAt)}
                     </time>
                 {/if}
             </div>
@@ -54,14 +56,14 @@
         <div class="project-content">
             {#if project.beschrijving}
                 <section class="project-description">
-                    <h2>Beschrijving</h2>
+                    <h2>{t('project.description')}</h2>
                     <p>{project.beschrijving}</p>
                 </section>
             {/if}
 
             {#if project.technologieen && project.technologieen.length > 0}
                 <section class="project-technologies">
-                    <h2>Gebruikte technologieën</h2>
+                    <h2>{t('project.technologies')}</h2>
                     <div class="tech-tags">
                         {#each project.technologieen as tech}
                             <span class="tech-tag">{tech.technologie}</span>
@@ -72,15 +74,15 @@
 
             {#if project.url}
                 <section class="project-links">
-                    <h2>Links</h2>
+                    <h2>{t('project.links')}</h2>
                     <a href={project.url} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                        Bekijk project op github
+                        {t('project.github')}
                     </a>
                 </section>
             {/if}
             {#if project.liveurl}
                 <a href={project.liveurl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                    Live omgeving
+                    {t('project.live')}
                 </a>
             {/if}
         </div>

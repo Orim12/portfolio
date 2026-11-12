@@ -26,6 +26,11 @@ cloudinary.config({
 })
 
 export default buildConfig({
+  localization: {
+    locales: ['en', 'nl'],
+    defaultLocale: 'en',
+    fallback: true,
+  },
   admin: {
     user: Users.slug,
     importMap: {

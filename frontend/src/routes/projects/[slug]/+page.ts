@@ -1,6 +1,8 @@
 import { fetchProjectById, ProjectsApiError } from '$lib/api.js';
 import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
+import { get } from 'svelte/store';
+import { locale } from '$lib/i18n';
 
 export const load: PageLoad = async ({ params, fetch }) => {
     try {
@@ -10,7 +12,7 @@ export const load: PageLoad = async ({ params, fetch }) => {
             throw error(400, 'Project ID is required');
         }
 
-        const project = await fetchProjectById(projectId, fetch);
+        const project = await fetchProjectById(projectId, fetch, get(locale));
         
         return {
             project

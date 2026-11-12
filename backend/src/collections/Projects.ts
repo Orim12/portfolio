@@ -11,11 +11,13 @@ export const Projects: CollectionConfig = {
       type: 'text',
       required: true,
       label: 'Project Naam',
+      localized: true,
     },
     {
       name: 'beschrijving',
       type: 'textarea',
       label: 'Beschrijving',
+      localized: true,
     },
     {
       name: 'afbeelding',
@@ -27,6 +29,7 @@ export const Projects: CollectionConfig = {
       name: 'technologieen',
       type: 'array',
       label: 'Technologieën',
+      localized: true,
       fields: [
         {
           name: 'technologie',
@@ -39,11 +42,13 @@ export const Projects: CollectionConfig = {
       name: 'url',
       type: 'text',
       label: 'github URL',
+      localized: true,
     },
     {
       name: 'liveurl',
       type: 'text',
       label: 'Live URL',
+      localized: true,
     },
     {
       // this field was added because i somehow got an error that said wrong email field while no email field existed

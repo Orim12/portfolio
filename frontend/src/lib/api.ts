@@ -1,5 +1,6 @@
 import type { PaginatedProjectsResponse, ApiError } from './types.js';
 import { env } from '$env/dynamic/public';
+import type { Locale } from './i18n';
 
 // Type definition voor General Data
 export interface GeneralData {
@@ -20,10 +21,21 @@ export interface AboutMe {
     webDevelopmentDescription: string;
     gameDevelopmentTitle: string;
     gameDevelopmentDescription: string;
+    services?: {
+        logo?: { cloudinaryUrl?: string; alt?: string };
+        title: string;
+        description: string;
+    }[];
 }
 
 // Base URL voor de API - uit environment variabelen of fallback
 const API_BASE_URL = env.PUBLIC_API_BASE_URL;
+
+function withLocale(url: string, currentLocale: Locale = 'en'): string {
+    const localizedUrl = new URL(url);
+    localizedUrl.searchParams.set('locale', currentLocale);
+    return localizedUrl.toString();
+}
 
 // Helper functie om de base URL voor media bestanden te krijgen
 export function getMediaBaseUrl(): string {
@@ -50,12 +62,14 @@ export class ProjectsApiError extends Error {
 export async function fetchProjects(
     page: number = 1, 
     limit: number = 10,
-    fetchFn: typeof fetch = fetch
+    fetchFn: typeof fetch = fetch,
+    currentLocale: Locale = 'en'
 ): Promise<PaginatedProjectsResponse> {
     try {
         const url = new URL(`${API_BASE_URL}/Projects`);
         url.searchParams.set('page', page.toString());
         url.searchParams.set('limit', limit.toString());
+        url.searchParams.set('locale', currentLocale);
 
         console.log('Fetching projects from URL:', url.toString());
 
@@ -99,9 +113,9 @@ export async function fetchProjects(
  * @param fetchFn - Fetch functie (optioneel, voor SvelteKit load functies)
  * @returns Promise met project data
  */
-export async function fetchProjectById(id: string, fetchFn: typeof fetch = fetch) {
+export async function fetchProjectById(id: string, fetchFn: typeof fetch = fetch, currentLocale: Locale = 'en') {
     try {
-        const url = `${API_BASE_URL}/Projects/${id}`;
+        const url = withLocale(`${API_BASE_URL}/Projects/${id}`, currentLocale);
         console.log('Fetching project from URL:', url);
         
         const response = await fetchFn(url, {
@@ -143,9 +157,9 @@ export async function fetchProjectById(id: string, fetchFn: typeof fetch = fetch
  * @param fetchFn - Fetch functie (optioneel, voor SvelteKit load functies)
  * @returns Promise met algemene data
  */
-export async function fetchGeneralData(fetchFn: typeof fetch = fetch): Promise<GeneralData> {
+export async function fetchGeneralData(fetchFn: typeof fetch = fetch, currentLocale: Locale = 'en'): Promise<GeneralData> {
     try {
-        const url = `${API_BASE_URL}/globals/general-data`;
+        const url = withLocale(`${API_BASE_URL}/globals/general-data`, currentLocale);
         console.log('Fetching general data from URL:', url);
 
         const response = await fetchFn(url, {
@@ -181,9 +195,9 @@ export async function fetchGeneralData(fetchFn: typeof fetch = fetch): Promise<G
     }
 }
 
-export async function fetchAboutMe(fetchFn: typeof fetch = fetch): Promise<AboutMe> {
+export async function fetchAboutMe(fetchFn: typeof fetch = fetch, currentLocale: Locale = 'en'): Promise<AboutMe> {
     try {
-        const url = `${API_BASE_URL}/globals/about-me`;
+        const url = withLocale(`${API_BASE_URL}/globals/about-me`, currentLocale);
         const response = await fetchFn(url, {
             method: 'GET',
             headers: {

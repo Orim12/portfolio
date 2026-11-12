@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { locale, translate } from '$lib/i18n';
 
 	$: errorMessage = getErrorMessage($page.error);
 	$: statusCode = $page.status || 500;
+	$: t = (key: string) => translate($locale, key);
 
 	function getErrorMessage(error: any): string {
 		if (typeof error?.message === 'string') {
@@ -11,13 +13,13 @@
 		
 		switch (statusCode) {
 			case 404:
-				return 'Deze pagina bestaat niet.';
+				return t('error.notFoundMessage');
 			case 500:
-				return 'Er is een interne serverfout opgetreden.';
+				return t('error.serverMessage');
 			case 403:
-				return 'Je hebt geen toegang tot deze pagina.';
+				return t('error.forbiddenMessage');
 			default:
-				return 'Er is iets misgegaan.';
+				return t('error.genericMessage');
 		}
 	}
 
@@ -31,8 +33,8 @@
 </script>
 
 <svelte:head>
-	<title>Fout {statusCode} - Portfolio</title>
-	<meta name="description" content="Er is een fout opgetreden op de portfolio website." />
+	<title>{t('error.pageTitle')} {statusCode} - Portfolio</title>
+	<meta name="description" content={t('error.genericMessage')} />
 </svelte:head>
 
 <main class="error-container">
@@ -57,13 +59,13 @@
 		<h1 class="error-code">{statusCode}</h1>
 		<h2 class="error-title">
 			{#if statusCode === 404}
-				Pagina niet gevonden
+				{t('error.notFound')}
 			{:else if statusCode === 500}
-				Interne serverfout
+				{t('error.server')}
 			{:else if statusCode === 403}
-				Geen toegang
+				{t('error.forbidden')}
 			{:else}
-				Er is een fout opgetreden
+				{t('error.generic')}
 			{/if}
 		</h2>
 		
@@ -75,14 +77,14 @@
 					<path d="m12 19-7-7 7-7"/>
 					<path d="M19 12H5"/>
 				</svg>
-				Ga terug
+				{t('error.back')}
 			</button>
 			<a href="/" class="btn btn-secondary">
 				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 					<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
 					<polyline points="9,22 9,12 15,12 15,22"/>
 				</svg>
-				Naar startpagina
+				{t('error.home')}
 			</a>
 		</div>
 	</div>

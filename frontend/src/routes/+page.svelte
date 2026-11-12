@@ -2,6 +2,7 @@
     import { onMount, onDestroy } from 'svelte';
     import { fetchProjects } from '$lib/api';
     import type { PageData } from './$types';
+    import { locale, translate } from '$lib/i18n';
 
     export let data: PageData;
 
@@ -22,6 +23,7 @@
     let mounted = false;
     let timers: number[] = [];
     let projectAantal: number;
+    $: t = (key: string) => translate($locale, key);
 
     function clearAllTimers() {
         for (const id of timers) {
@@ -101,8 +103,8 @@
 </script>
 
 <svelte:head>
-    <title>Portfolio - Home</title>
-    <meta name="description" content="Welkom op mijn portfolio website" />
+    <title>{t('home.title')}</title>
+    <meta name="description" content={t('home.description')} />
 </svelte:head>
 
 <div class="home-container">
@@ -111,16 +113,16 @@
         <div class="hero-content">
             <div class="hero-text">
                 <h1>
-                    <span class="greeting">Hallo, ik ben</span>
+                    <span class="greeting">{t('home.greeting')}</span>
                     <span class="name">Miro Vaassen</span>
                 </h1>
                 <div class="rotating-skills">
-                    <span class="skill-prefix">Ik kan</span>
+                    <span class="skill-prefix">{t('home.can')}</span>
                     <span class="skill-text">{displayedSkill}</span>
                     <span class="skill-cursor" aria-hidden="true"></span>
                 </div>
                 <p class="hero-description">
-                    {aboutMe?.heroDescription || 'Gepassioneerde full-stack developer die moderne web applicaties bouwt met focus op gebruikerservaring en clean code. Altijd op zoek naar nieuwe technologieën en uitdagingen.'}
+                    {aboutMe?.heroDescription || t('home.heroFallback')}
                 </p>
                 <div class="hero-actions">
                     <a href="/projects" class="btn btn-primary">
@@ -129,7 +131,7 @@
                             <circle cx="9" cy="9" r="2"/>
                             <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
                         </svg>
-                        Bekijk Projecten
+                        {t('home.viewProjects')}
                     </a>
                     <a href="#contact" class="btn btn-secondary">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -148,36 +150,36 @@
     <!-- About Section -->
     <section class="about" id="about">
         <div class="section-container">
-            <h2 class="section-title">{aboutMe?.aboutTitle || 'Over Mij'}</h2>
+            <h2 class="section-title">{aboutMe?.aboutTitle || t('home.about')}</h2>
             <div class="about-content">
                 <div class="about-text">
                     <p>
-                        {aboutMe?.aboutParagraphOne || `Met ongeveer ${jaar} jaar ervaring in webdevelopment richt ik mij vooral op het bouwen van schaalbare en efficiënte backend-systemen. Naast webdevelopment ben ik ook actief bezig met game development en mod development, waar ik mijn creativiteit en technische kennis kan combineren om unieke ervaringen en uitbreidingen te ontwikkelen.`}
+                        {aboutMe?.aboutParagraphOne || t('home.aboutOneFallback').replace('{years}', String(jaar))}
                     </p>
                     <p>
-                        {aboutMe?.aboutParagraphTwo || 'Ik werk graag met de nieuwste technologieën en frameworks en ben altijd op zoek naar manieren om mijn projecten naar een hoger niveau te tillen. Optimalisatie, toegankelijkheid en gebruiksvriendelijkheid staan voor mij centraal — of het nu gaat om een webapplicatie, een game of een mod. Dankzij mijn brede interesse in zowel software- als game-technologie kan ik innovatieve oplossingen creëren die passen bij de behoeften van ieder project.'}
+                        {aboutMe?.aboutParagraphTwo || t('home.aboutTwoFallback')}
                     </p>
 
                     <div class="stats">
                         <div class="stat">
                             <span class="stat-number">{ projectAantal ||data.generalData?.projectsAantal}</span>
-                            <span class="stat-label">Projecten</span>
+                            <span class="stat-label">{t('home.projects')}</span>
                         </div>
                         <div class="stat">
                             <span class="stat-number">{data.generalData?.ervaringJaren || 0}</span>
-                            <span class="stat-label">Jaar Ervaring</span>
+                            <span class="stat-label">{t('home.yearsExperience')}</span>
                         </div>
                         <div class="stat">
                             <span class="stat-number">{data.generalData?.klantenAantal || 0}</span>
-                            <span class="stat-label">Tevreden Klanten</span>
+                            <span class="stat-label">{t('home.happyClients')}</span>
                         </div>
                     </div>
                 </div>
                 <div class="about-skills">
-                    <h3>Mijn Skills</h3>
+                    <h3>{t('home.mySkills')}</h3>
                     <div class="skill-categories">
                         <div class="skill-category">
-                            <h4>Frontend</h4>
+                            <h4>{t('home.frontend')}</h4>
                             <div class="skill-tags">
                                 <span class="skill-tag">JavaScript</span>
                                 <span class="skill-tag">TypeScript</span>
@@ -187,7 +189,7 @@
                             </div>
                         </div>
                         <div class="skill-category">
-                            <h4>Backend</h4>
+                            <h4>{t('home.backend')}</h4>
                             <div class="skill-tags">
                                 <span class="skill-tag">Node.js</span>
                                 <span class="skill-tag">Python</span>
@@ -197,7 +199,7 @@
                             </div>
                         </div>
                         <div class="skill-category">
-                            <h4>Tools & Overig</h4>
+                            <h4>{t('home.tools')}</h4>
                             <div class="skill-tags">
                                 <span class="skill-tag">Git</span>
                                 <span class="skill-tag">Docker</span>
@@ -206,7 +208,7 @@
                             </div>
                         </div>
                         <div class="skill-category">
-                            <h4>Game Development</h4>
+                            <h4>{t('home.gameDevelopment')}</h4>
                             <div class="skill-tags">
                                 <span class="skill-tag">Unity</span>
                                 <span class="skill-tag">Godot</span>
@@ -223,14 +225,15 @@
     <!-- Services Section -->
     <section class="services">
         <div class="section-container">
-            <h2 class="section-title">{aboutMe?.servicesTitle || 'Wat Ik Doe'}</h2>
+            <h2 class="section-title">{aboutMe?.servicesTitle || t('home.services')}</h2>
             <div class="services-grid">
-            {#each aboutMe?.services as item}
+            {#each aboutMe?.services ?? [] as item}
                 
             <div class="service-card">
                 <div class="service-icon">
-                {console.log(item.logo.cloudinaryUrl)}
-                    <img src={item.logo.cloudinaryUrl} alt={item.logo.alt}>
+                    {#if item.logo?.cloudinaryUrl}
+                        <img src={item.logo.cloudinaryUrl} alt={item.logo.alt || item.title}>
+                    {/if}
                 </div>
                 <h3>{item?.title }</h3>
                 <p>{item?.description}</p>
@@ -243,11 +246,11 @@
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="section-container">
-            <h2 class="section-title">Laten We Samenwerken</h2>
-            <p class="contact-subtitle">Heb je een project in gedachten? Neem contact met me op!</p>
+            <h2 class="section-title">{t('home.workTogether')}</h2>
+            <p class="contact-subtitle">{t('home.projectQuestion')}</p>
             <div class="contact-content">
                 <div class="contact-info">
-                    <a href="/contact" class="btn btn-primary">Neem Contact Op</a>
+                    <a href="/contact" class="btn btn-primary">{t('home.contactMe')}</a>
                 </div>
             </div>
         </div>

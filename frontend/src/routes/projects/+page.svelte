@@ -2,16 +2,18 @@
     import type { PageData } from './$types';
     
     import type { Project } from '$lib/types';
+    import { locale, translate } from '$lib/i18n';
     
     export let data: PageData;
     
     $: projects = data.projects;
     $: currentPage = data.currentPage;
     $: limit = data.limit;
+    $: t = (key: string) => translate($locale, key);
     
     // Helper functie om datum te formatteren
     function formatDate(dateString: string): string {
-        return new Date(dateString).toLocaleDateString('nl-NL', {
+        return new Date(dateString).toLocaleDateString($locale === 'nl' ? 'nl-NL' : 'en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
@@ -30,14 +32,14 @@
 </script>
 
 <svelte:head>
-    <title>Projecten - Portfolio</title>
-    <meta name="description" content="Overzicht van alle projecten in mijn portfolio" />
+    <title>{t('projects.title')}</title>
+    <meta name="description" content={t('projects.description')} />
 </svelte:head>
 
 <div class="projects-container">
     <header class="projects-header">
-        <h1>Mijn Projecten</h1>
-        <p>Ontdek de verschillende projecten waar ik aan gewerkt heb</p>
+        <h1>{t('projects.heading')}</h1>
+        <p>{t('projects.intro')}</p>
     </header>
 
     {#if projects.docs && projects.docs.length > 0}
@@ -67,7 +69,7 @@
                     
                     <div class="project-actions">
                         <a href="/projects/{project.id}" class="btn btn-primary">
-                            Bekijk project
+                            {t('projects.view')}
                         </a>
                         {#if project.url}
                             <a href={project.url} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
@@ -76,7 +78,7 @@
                         {/if}
                         {#if project.liveurl}
                             <a href={project.liveurl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                                Live omgeving
+                                {t('projects.live')}
                             </a>
                         {/if}
                     </div>
@@ -86,19 +88,19 @@
 
         <!-- Paginatie -->
         {#if projects.totalPages > 1}
-            <nav class="pagination" aria-label="Projecten paginatie">
+            <nav class="pagination" aria-label={t('projects.heading')}>
                 <div class="pagination-info">
-                    Pagina {projects.page} van {projects.totalPages} 
-                    ({projects.totalDocs} projecten totaal)
+                    {t('projects.page')} {projects.page} {t('projects.of')} {projects.totalPages}
+                    ({projects.totalDocs} {t('projects.total')})
                 </div>
                 
                 <div class="pagination-controls">
                     {#if projects.hasPrevPage && projects.prevPage}
-                        <a href={getPageUrl(1)} class="btn btn-outline" aria-label="Eerste pagina">
+                        <a href={getPageUrl(1)} class="btn btn-outline" aria-label={t('projects.first')}>
                             ««
                         </a>
-                        <a href={getPageUrl(projects.prevPage)} class="btn btn-outline" aria-label="Vorige pagina">
-                            ‹ Vorige
+                        <a href={getPageUrl(projects.prevPage)} class="btn btn-outline" aria-label={t('projects.previous')}>
+                            ‹ {t('projects.previous')}
                         </a>
                     {/if}
                     
@@ -107,10 +109,10 @@
                     </span>
                     
                     {#if projects.hasNextPage && projects.nextPage}
-                        <a href={getPageUrl(projects.nextPage)} class="btn btn-outline" aria-label="Volgende pagina">
-                            Volgende ›
+                        <a href={getPageUrl(projects.nextPage)} class="btn btn-outline" aria-label={t('projects.next')}>
+                            {t('projects.next')} ›
                         </a>
-                        <a href={getPageUrl(projects.totalPages)} class="btn btn-outline" aria-label="Laatste pagina">
+                        <a href={getPageUrl(projects.totalPages)} class="btn btn-outline" aria-label={t('projects.last')}>
                             »»
                         </a>
                     {/if}
@@ -119,8 +121,8 @@
         {/if}
     {:else}
         <div class="empty-state">
-            <h2>Geen projecten gevonden</h2>
-            <p>Er zijn momenteel geen projecten beschikbaar.</p>
+            <h2>{t('projects.empty')}</h2>
+            <p>{t('projects.emptyDescription')}</p>
         </div>
     {/if}
 </div>

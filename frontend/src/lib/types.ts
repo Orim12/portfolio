@@ -28,6 +28,7 @@ export interface Project {
     beschrijving?: string;
     technologieen?: Technologie[];
     url?: string;
+    liveurl?: string;
     afbeelding?: Afbeelding;
 }
 

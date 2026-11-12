@@ -1,0 +1,10 @@
+{
+	"contact": {
+		"unavailable": "Het contactformulier is tijdelijk niet beschikbaar.",
+		"invalidFields": "Vul alle velden in.",
+		"invalidEmail": "Vul een geldig e-mailadres in.",
+		"invalidRequest": "Controleer de ingevulde gegevens en probeer het opnieuw.",
+		"sendFailed": "Het bericht kon niet worden verstuurd. Probeer het later opnieuw.",
+		"sent": "Je bericht is verstuurd."
+	}
+}

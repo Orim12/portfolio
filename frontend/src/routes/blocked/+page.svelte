@@ -1,11 +1,18 @@
+<script lang="ts">
+	import { locale, translate } from '$lib/i18n';
+
+	$: t = (key: string) => translate($locale, key);
+</script>
+
 <svelte:head>
-	<title>No - Portfolio</title>
-	<meta name="description" content="No" />
+	<title>{t('blocked.title')} - Portfolio</title>
+	<meta name="description" content={t('blocked.description')} />
 </svelte:head>
 
 <div class="no-container">
 	<header class="no-header">
-		<h1>No</h1>
+		<h1>{t('blocked.title')}</h1>
+		<p>{t('blocked.description')}</p>
 	</header>
 </div>
 
@@ -36,6 +43,12 @@
 		letter-spacing: 0.04em;
 		text-transform: uppercase;
 	}
+	.no-header p {
+		margin: 0;
+		font-size: 1.2rem;
+		color: var(--text-color);
+		letter-spacing: 0.04em;
+	}
 
 	@media (max-width: 768px) {
 		.no-header {
@@ -44,6 +57,10 @@
 
 		.no-header h1 {
 			font-size: 2.25rem;
+		}
+
+		.no-header p {
+			font-size: 1.125rem;
 		}
 	}
 </style>

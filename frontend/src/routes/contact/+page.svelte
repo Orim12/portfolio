@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { locale, translate } from '$lib/i18n'
+
+	$: t = (key: string) => translate($locale, key)
 	let submitting = false
 	let feedback: { type: 'success' | 'error'; message: string } | null = null
 
@@ -16,7 +19,7 @@
 			const result = (await response.json()) as { message?: string }
 
 			if (!response.ok) {
-				throw new Error(result.message || 'Het bericht kon niet worden verstuurd.')
+				throw new Error(result.message || t('contact.sendFailed'))
 			}
 
 			form.reset()
@@ -26,7 +29,7 @@
 				type: 'error',
 				message: error instanceof Error
 					? error.message
-					: 'Het bericht kon niet worden verstuurd. Probeer het later opnieuw.',
+					: t('contact.sendFailed'),
 			}
 		} finally {
 			submitting = false
@@ -35,26 +38,26 @@
 </script>
 
 <svelte:head>
-	<title>Contact - Portfolio</title>
-	<meta name="description" content="Neem contact op voor vragen, ideeën of samenwerkingen" />
+	<title>{t('contact.title')}</title>
+	<meta name="description" content={t('contact.description')} />
 </svelte:head>
 
 <div class="contact-container">
 	<header class="contact-header">
-		<h1>Neem contact op</h1>
-		<p>Heb je een vraag, idee of wil je samenwerken? Stuur gerust een bericht.</p>
+		<h1>{t('contact.heading')}</h1>
+		<p>{t('contact.intro')}</p>
 	</header>
 
 	<div class="contact-content">
 		<section class="contact-card card" aria-labelledby="form-title">
 			<div class="card-heading">
-				<h2 id="form-title">Stuur een bericht</h2>
-				<p>Ik probeer zo snel mogelijk te reageren.</p>
+				<h2 id="form-title">{t('contact.sendMessage')}</h2>
+				<p>{t('contact.response')}</p>
 			</div>
 
 			<form action="/contact" method="POST" on:submit={handleSubmit}>
 				<div class="form-field">
-					<label for="name">Naam</label>
+					<label for="name">{t('contact.name')}</label>
 					<input
 						class="form-control"
 						id="name"
@@ -66,7 +69,7 @@
 				</div>
 
 				<div class="form-field">
-					<label for="email">E-mailadres</label>
+					<label for="email">{t('contact.email')}</label>
 					<input
 						class="form-control"
 						id="email"
@@ -75,11 +78,11 @@
 						autocomplete="email"
 						required
 					/>
-					<p class="field-description">Hiermee kan ik je beantwoorden.</p>
+					<p class="field-description">{t('contact.emailDescription')}</p>
 				</div>
 
 				<div class="form-field">
-					<label for="message">Bericht</label>
+					<label for="message">{t('contact.message')}</label>
 					<textarea
 						class="form-control"
 						id="message"
@@ -87,7 +90,7 @@
 						rows="6"
 						required
 					></textarea>
-					<p class="field-description">Waar kan ik je mee helpen?</p>
+					<p class="field-description">{t('contact.messageDescription')}</p>
 				</div>
 
 				{#if feedback}
@@ -101,7 +104,7 @@
 				{/if}
 
 				<button class="btn btn-primary submit-button" type="submit" disabled={submitting}>
-					{submitting ? 'Versturen...' : 'Bericht versturen'}
+					{submitting ? t('contact.sending') : t('contact.send')}
 				</button>
 			</form>
 		</section>

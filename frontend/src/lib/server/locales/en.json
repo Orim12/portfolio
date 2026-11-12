@@ -1,0 +1,10 @@
+{
+	"contact": {
+		"unavailable": "The contact form is temporarily unavailable.",
+		"invalidFields": "Please fill in all fields.",
+		"invalidEmail": "Please enter a valid email address.",
+		"invalidRequest": "Check the entered details and try again.",
+		"sendFailed": "The message could not be sent. Please try again later.",
+		"sent": "Your message has been sent."
+	}
+}
