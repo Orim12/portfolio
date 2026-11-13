@@ -96,7 +96,7 @@ export interface Config {
     'general-data': GeneralDataSelect<false> | GeneralDataSelect<true>;
     'about-me': AboutMeSelect<false> | AboutMeSelect<true>;
   };
-  locale: null;
+  locale: 'en' | 'nl';
   user: User & {
     collection: 'users';
   };

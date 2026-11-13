@@ -3,7 +3,7 @@ import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 import { translate } from '$lib/server/i18n'
 
-const API_BASE_URL = env.PUBLIC_API_BASE_URL || 'https://backend.mirovaassen.nl/api'
+const API_BASE_URL = env.PUBLIC_API_BASE_URL
 
 export const POST: RequestHandler = async ({ request, fetch }) => {
 	const requestLocale = request.headers.get('cookie')?.match(/(?:^|;\s*)portfolio-locale=(en|nl)/)?.[1] as 'en' | 'nl' | undefined

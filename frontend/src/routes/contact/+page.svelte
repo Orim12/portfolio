@@ -23,7 +23,7 @@
 			}
 
 			form.reset()
-			feedback = { type: 'success', message: result.message || 'Je bericht is verstuurd.' }
+			feedback = { type: 'success', message: result.message || t('contact.sent') }
 		} catch (error) {
 			feedback = {
 				type: 'error',
